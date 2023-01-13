@@ -1,0 +1,21 @@
+<h1>Reports index page</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Text</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @reports.each do |report| %>
+      <tr>
+        <td><%= report.text %></td>
+        <td><%= link_to "Edit",edit_report_path(report) %></td>
+        <td><%= link_to "Delete",report_path(report), method: :delete  %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
