@@ -50,3 +50,16 @@ text:params[:report][:text]
     # else 
     #   render 'edit'
     # end
+
+    <div class="form-group">
+  <%= label_tag :subreports %>
+  <%=  select_tag "subreports", options_for_select(@subreports.map{|r| r.text}) %> 
+</div>
+
+
+<ul>
+      <% @subreports.each do |r| %>
+        
+        <li><%= link_to"report", report_path(@report.subreports), class:"btn btn-primary" %></li>
+      <%end%>
+    </ul>

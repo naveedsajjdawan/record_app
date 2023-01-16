@@ -1,0 +1,9 @@
+@import 'bootstrap/dist/css/bootstrap';
+
+.jumbotron {
+  background-image: asset-url('header-1200-9.jpg');
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 425px;
+}

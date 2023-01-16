@@ -1,29 +1,35 @@
-<h1>Edit a report!</h1>
+<div class="container">
+  <h1>Edit a report!</h1>
+  <% if @report.errors.any? %>
+    <h2>The following errors prevented the article from being saved</h2>
+    <ul>
+      <% @report.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  <% end %>
 
-<% if @report.errors.any? %>
-  <h2>The following errors prevented the article from being saved</h2>
-  <ul>
-    <% @report.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
-    <% end %>
-  </ul>
-<% end %>
+  <%= form_with(model: @report, local: true) do |f| %>
+    <div class="form-group">
+      <%= f.label:text, class:"col-2 col-form-label text-dark" %>
+      <%= f.text_area :text, class: " form-control shadow rounded mb-3", placeholder: "Description of Report" %>
+    </div>
+      
+    <div class="form-group">
+      <%= f.label :User, class:"col-2 col-form-label text-dark"%><br/> 
+      <%= f.collection_select(:user_ids, User.not_active_user(current_user.id), :id, :email, {:prompt => "Please Select a category"}, {:multiple => true, size: 4} ) %>
+    </div>
 
-<%= form_with(model: @report, local: true) do |f| %>
-  <div class="field">
-    <%= f.label:text %><br />
-    <%= f.text_area :text %>
-  </div>
-  
-  <div class="field">
-    <%= f.label :User %><br/> 
-    <%= f.collection_select(:user_ids, User.not_active_user(current_user.id), :id, :email, {:prompt => "Please Select a category"}, {:multiple => true, size: 4} ) %>
-  </div>
-  
-  <div class="field">
-    <%= f.submit  %>
-  </div>
-<% end %>
+    <div class="form-group">
+      <%= f.label :Reports, class:"col-2 col-form-label text-dark"%><br/> 
+      <%= f.collection_select(@report, current_user.reports, :id, :text, multiple: 'true') %>
+    </div>
+      
+    <div class="field mt-2">
+      <%= f.submit  %>
+    </div>
+  <% end %>
+</div>
 
 
 

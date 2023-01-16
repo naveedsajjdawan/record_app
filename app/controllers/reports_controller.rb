@@ -7,6 +7,7 @@ class ReportsController < ApplicationController
 
   def show
     @report = Report.find(params[:id])
+    @subreports = @report.subreports
   end
 
   def new
@@ -47,6 +48,11 @@ class ReportsController < ApplicationController
     @report = Report.find(params[:id])
     @report.destroy
     redirect_to reports_path
+  end
+
+  def report_users
+    @report = Report.find(params[:id])
+    @user = @report.users 
   end
 
   private

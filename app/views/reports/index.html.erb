@@ -1,21 +1,21 @@
-<h1>Reports index page</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Text</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @reports.each do |report| %>
+<div class="container">
+  <h1>Reports index page</h1>
+  <table>
+    <thead>
       <tr>
-        <td><%= report.text %></td>
-        <td><%= link_to "Edit",edit_report_path(report) %></td>
-        <td><%= link_to "Delete",report_path(report), method: :delete  %></td>
+        <th>Text</th>
+        <th>Actions</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
 
+    <tbody>
+      <% @reports.each do |report| %>
+        <tr>
+          <td><%= report.text %></td>
+          <td><%= link_to "Edit",edit_report_path(report),class:"btn btn-outline-primary me-2" %></td>
+          <td><%= link_to "Delete",report_path(report), method: :delete, class:"btn btn-outline-primary"  %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
