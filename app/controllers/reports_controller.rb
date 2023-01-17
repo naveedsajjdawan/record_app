@@ -32,6 +32,7 @@ class ReportsController < ApplicationController
   def update
     @report = Report.find(params[:id])
     current_user.reports.find_by(id: @report.id).update!(text: params[:report][:text])
+    @report.subreports << Report.find_by(id: params[:report][:sub_ids][1]) 
     params[:report][:user_ids].compact_blank.each do |id|
       user = User.find_by(id: id)
       if user.report_ids.include?(@report.id)
