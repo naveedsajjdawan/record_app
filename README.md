@@ -87,3 +87,19 @@ text:params[:report][:text]
       # ReportUser.create!(user_id: user.id, report_id: @report.id)
         # @report = ReportUser.find_by(report_id: @report.id, user_id: user.id)
         # @report.destroy
+
+
+
+
+
+
+
+
+
+
+
+         del_report = []
+    user_reports = current_user.report_ids
+    del_report << params[:id].to_i
+    updated_report = user_reports - del_report
+    current_user.update(report_ids: updated_report)

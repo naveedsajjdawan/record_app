@@ -48,11 +48,7 @@ class ReportsController < ApplicationController
 
   def destroy
     @report = Report.find(params[:id])
-    del_report = []
-    user_reports = current_user.report_ids
-    del_report << params[:id].to_i
-    updated_report = user_reports - del_report
-    current_user.update(report_ids: updated_report)
+   current_user.reports.destroy(@report)
     redirect_to reports_path
   end
 
