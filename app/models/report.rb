@@ -1,6 +1,6 @@
 class Report < ApplicationRecord
-  has_many :report_users
-  has_many :users, through: :report_users
+  has_many :report_users, dependent: :destroy
+  has_many :users, through: :report_users, dependent: :destroy
 
   has_many :subreports, class_name: "Report", foreign_key: "report_id"
   

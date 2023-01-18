@@ -5,7 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,  :trackable
        
        has_many :report_users
-       has_many  :reports, through: :report_users
+       has_many  :reports, through: :report_users 
 
   scope :not_active_user, ->(id) { where.not(id: id) }
 end

@@ -36,10 +36,10 @@ text:params[:report][:text]
   text: params[:report][:text]
 
    # params[:report][:user_ids].each do |id|
-      #   next if id.blank?
-      #     ReportUser.create(report_id: @report.id, user_id: id)  
-      #   # @report.report_users.create(user_id: id)
-      # end
+        #   next if id.blank?
+        #     ReportUser.create(report_id: @report.id, user_id: id)  
+        #   # @report.report_users.create(user_id: id)
+    # end
 
 
 
@@ -63,3 +63,27 @@ text:params[:report][:text]
         <li><%= link_to"report", report_path(@report.subreports), class:"btn btn-primary" %></li>
       <%end%>
     </ul>
+      # @report.subreports << Report.find_by(id: params[:report][:sub_ids][1]) if params[:report][:sub_ids].compact_blank.present?
+
+      # user.reports.create!(text: params[:report][:text])
+
+
+
+       @report = Report.find(params[:id])
+    current_user.reports.find_by(id: @report.id).update!(text: params[:report][:text])
+      params[:report][:sub_ids].each do |id|
+        @report.subreports << Report.find_by(id: id) if id.present?
+      end
+    params[:report][:user_ids].compact_blank.each do |id|
+      user = User.find_by(id: id)
+      byebug
+      if user.report_ids.include?(@report.id)
+        @report.update!(text: params[:report][:text])
+      else
+        ReportUser.create!(user_id: user.id, report_id: @report.id)
+      end
+    end
+    redirect_to @report
+      # ReportUser.create!(user_id: user.id, report_id: @report.id)
+        # @report = ReportUser.find_by(report_id: @report.id, user_id: user.id)
+        # @report.destroy
