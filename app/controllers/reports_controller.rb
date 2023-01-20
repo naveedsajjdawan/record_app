@@ -31,24 +31,27 @@ class ReportsController < ApplicationController
 
   def update
     @report = Report.find(params[:id])
-    current_user.reports.find_by(id: @report.id).update!(text: params[:report][:text])
+    already_asigned = @report.user_ids - [current_user.id]
+    already_asigned.each do |id|
+      ReportUser.find_by(user_id: id,report_id: @report.id).destroy
+    end
+    @report.update!(text: params[:report][:text])
+    @report.users.where(id: already_asigned).destroy_all
+    incoming_user = params[:report][:user_ids].compact_blank.map(&:to_i)
+    incoming_user.each do |id|
+      User.find(id).report_users.create!(report_id: @report.id) if current_user.id != id
+    end
+
+    current_user.reports.find(@report.id).update!(text: params[:report][:text])
       params[:report][:sub_ids].each do |id|
         @report.subreports << Report.find_by(id: id) if id.present?
       end
-    params[:report][:user_ids].compact_blank.each do |id|
-      user = User.find_by(id: id)
-      if user.report_ids.include?(@report.id)
-        @report.update!(text: params[:report][:text])
-      else
-        @report.report_users.create!(user_id: user.id)
-      end
-    end
     redirect_to @report
   end
 
   def destroy
     @report = Report.find(params[:id])
-   current_user.reports.destroy(@report)
+    current_user.reports.destroy(@report)
     redirect_to reports_path
   end
 
@@ -62,8 +65,4 @@ class ReportsController < ApplicationController
   def set_params
     params.require(:report).permit(:text)
   end
-  # def user_destroy
-  #   @report = ReportUser.find_by(report_id: @report.id, user_id: user.id)
-  #   @report.destroy
-  # end
 end

@@ -8,5 +8,6 @@ Rails.application.routes.draw do
   root 'pages#home'
   resources :reports
   get '/report_users/:id', to: 'reports#report_users', as: 'report_users'
+  resources :posts
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

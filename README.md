@@ -88,18 +88,24 @@ text:params[:report][:text]
         # @report = ReportUser.find_by(report_id: @report.id, user_id: user.id)
         # @report.destroy
 
-
-
-
-
-
-
-
-
-
-
-         del_report = []
+    del_report = []
     user_reports = current_user.report_ids
     del_report << params[:id].to_i
     updated_report = user_reports - del_report
     current_user.update(report_ids: updated_report)
+
+
+   @user = User.find(params[:id])
+   @report
+
+
+    # params[:report][:user_ids].compact_blank.each do |id|
+    #   user = User.find_by(id: id)
+    #   if user.report_ids.include?(@report.id)
+        
+    #   else
+    #     @report.report_users.create!(user_id: user.id)
+    #     @user = [report_users.ids] - [User.ids]
+    #     # @user.destroy
+    #   end
+    # end
