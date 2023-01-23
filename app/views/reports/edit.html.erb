@@ -25,10 +25,11 @@
       <%= f.collection_select(:sub_ids, current_user.reports, :id, :text, {:prompt => "Please Select subreport"}, {:multiple => true, size: 4}) %>
     </div>
       
-    <div class="field mt-2">
+    <div class="field mt-1 mb-3">
       <%= f.submit  %>
     </div>
   <% end %>
+  <%= render partial: "comments/form", locals: {commentable: @report} %>
 </div>
 
 

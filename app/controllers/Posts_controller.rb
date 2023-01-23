@@ -1,12 +1,13 @@
 class PostsController < ApplicationController
    before_action :authenticate_user!
+   
+   before_action :find_post_id, only: [:show, :edit, :update, :destroy]
   
   def index
     @posts = current_user.posts
   end
 
   def show
-    @post = Post.find(params[:id])
   end
 
   def new
@@ -24,11 +25,9 @@ class PostsController < ApplicationController
   end
 
   def edit
-     @post = Post.find(params[:id])
   end
 
   def update
-    @post = Post.find(params[:id])
     if @post.update(post_params)
       flash[:notice] = "update done successfully."
       redirect_to @post
@@ -39,11 +38,15 @@ class PostsController < ApplicationController
 
   def destroy
     @post.destroy
-     redirect_to reports_path
+     redirect_to posts_path
   end
 
   private
     def post_params
       params.require(:post).permit(:text)
+    end
+
+    def find_post_id
+      @post = Post.find(params[:id])
     end
 end

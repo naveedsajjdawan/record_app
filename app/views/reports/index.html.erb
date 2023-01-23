@@ -4,7 +4,7 @@
     <thead>
       <tr>
         <th>Text</th>
-        <th>Actions</th>
+        <th colspan="2">some Actions</th>
       </tr>
     </thead>
 
@@ -12,7 +12,7 @@
       <% @reports.each do |report| %>
         <tr>
           <td><%= link_to report.text, report_path(report), class:"break" %></td>
-          <td><%= link_to "Edit",edit_report_path(report),class:"btn btn-outline-primary me-2" %></td>
+          <td><%= link_to "Edit",edit_report_path(report),class:"btn btn-outline-primary mx-1 my-1" %></td>
           <td><%= link_to "Delete",report_path(report), method: :delete, class:"btn btn-outline-primary"  %></td>
         </tr>
       <% end %>

@@ -15,4 +15,6 @@
       <li><%= link_to sub_report.text, report_path(sub_report) %>
     <% end %>
   </div>
+  <%= render partial: "comments/comments", locals: {commentable: @report} %>
+  
 </div>

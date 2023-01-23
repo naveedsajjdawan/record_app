@@ -6,8 +6,16 @@ Rails.application.routes.draw do
     confirmations: 'users/confirmations'
   }
   root 'pages#home'
-  resources :reports
+  
+  resources :reports 
   get '/report_users/:id', to: 'reports#report_users', as: 'report_users'
-  resources :posts
+
+  resources :posts do
+    resources :comments
+  end
+  resources :reports do
+    resources :comments
+  end
+  
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

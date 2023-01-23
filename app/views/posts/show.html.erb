@@ -1,4 +1,5 @@
 <div class="container">
   <h1>This is post showing page</h1>
   <p><strong>Text:</strong> <%= @post.text %></p>
+  <%= render partial: "comments/comments", locals: {commentable: @post} %>
 </div>

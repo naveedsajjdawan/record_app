@@ -31,11 +31,14 @@ class ReportsController < ApplicationController
 
   def update
     @report = Report.find(params[:id])
+    
     already_asigned = @report.user_ids - [current_user.id]
     already_asigned.each do |id|
       ReportUser.find_by(user_id: id,report_id: @report.id).destroy
     end
+    
     @report.update!(text: params[:report][:text])
+    
     @report.users.where(id: already_asigned).destroy_all
     incoming_user = params[:report][:user_ids].compact_blank.map(&:to_i)
     incoming_user.each do |id|
