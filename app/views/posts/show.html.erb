@@ -2,4 +2,5 @@
   <h1>This is post showing page</h1>
   <p><strong>Text:</strong> <%= @post.text %></p>
   <%= render partial: "comments/comments", locals: {commentable: @post} %>
+  <%= render partial: "comments/form", locals: {commentable: @post} %>
 </div>

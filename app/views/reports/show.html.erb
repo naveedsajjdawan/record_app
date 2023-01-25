@@ -1,20 +1,26 @@
 <div class="container">
-  <h1>This is report showing page</h1>
-  <p><strong>Text:</strong> <%= @report.text %></p>
-  
-  <div>
-    <h3>List of all related users</h3>
-    <ul>
-        <li><%= link_to 'Related Users', report_users_path(@report)%></li>  
-    </ul>
-  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h1>This is report showing page</h1>
+      <p><strong>Text:</strong> <%= @report.text %></p>
 
-  <div>
-    <h3>Subreports</h3>
-    <% @subreports.each do |sub_report| %>
-      <li><%= link_to sub_report.text, report_path(sub_report) %>
-    <% end %>
+      <div>
+        <h3>List of all related users</h3>
+        <ul>
+            <li><%= link_to 'Related Users', report_users_path(@report)%></li>  
+        </ul>
+      </div>
+
+      <div>
+        <h3>Subreports</h3>
+        <% @subreports.each do |sub_report| %>
+          <li><%= link_to sub_report.text, report_path(sub_report) %>
+        <% end %>
+      </div>
+    </div>
+    <div class="col-6">
+      <%= render partial: "comments/comments", locals: {commentable: @report} %>
+      <%= render partial: "comments/form", locals: {commentable: @report} %>
+    </div>
   </div>
-  <%= render partial: "comments/comments", locals: {commentable: @report} %>
-  
 </div>

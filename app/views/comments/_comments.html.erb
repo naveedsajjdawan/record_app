@@ -1,8 +1,9 @@
 <div class="mt-2 mb-2">
   <h3>Comments show page</h3>
 </div>
-<% commentable.comments.each do |comment| %>
-  <div class="well">
-    <%= comment.text %>
-  </div>
-<% end %>
+  <% commentable.comments.each do |comment| %>
+    <div class="well">
+      <%= comment.text %>
+    </div>
+  <% end %>
+

@@ -2,7 +2,6 @@ class CommentsController < ApplicationController
   before_action :authenticate_user!
 
   def create
-    byebug
     @commentable = if params[:report_id].present?
       Report.find(params[:report_id])
     else
